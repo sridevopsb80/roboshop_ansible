@@ -1,6 +1,6 @@
-- name: Frontend Playbook
+- name: RoboShop Project Playbook
   hosts: all
   become: true #used to execute sudo
   roles:
-    - frontend
+    - {{ role_name }} #using {{}} to define a variable in ansible
 
