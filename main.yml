@@ -2,5 +2,5 @@
   hosts: all
   become: true #used to execute sudo
   roles:
-    - {{ role_name }} #using {{}} to define a variable in ansible
+    - ""{{ role_name }}"" #using {{}} to define a variable in ansible
 
