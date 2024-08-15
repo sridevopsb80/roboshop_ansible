@@ -14,9 +14,9 @@
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
 
--name: Setup App Prerequisites
-ansible.builtin.include_role:
-  - name: common #folder name
+- name: Setup App Prerequisites
+  ansible.builtin.include_role:
+    name: common #folder name
     tasks_from: app-prereq #file name
 
 - name: Start Nginx Service
