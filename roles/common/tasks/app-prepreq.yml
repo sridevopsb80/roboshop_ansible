@@ -4,16 +4,16 @@
 
 - name: Remove old content
   ansible.builtin.file: #module for file
-    path: "{{ app_path }}"
-    state: absent
+    path: "{{ app_path }}" #variable is defined in vars
+    state: absent #used to remove content
 
 - name: Create App Directory
   ansible.builtin.file:
-    path: "{{ app_path }}"
+    path: "{{ app_path }}" #variable is defined in vars
     state: directory
 
 - name: Download & Extract Application Content
   ansible.builtin.unarchive:
     src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip
-    dest: "{{ app_path}}"
+    dest: "{{ app_path}}" #variable is defined in vars
     remote_src: yes
