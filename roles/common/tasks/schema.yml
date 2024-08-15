@@ -9,4 +9,4 @@
     state: latest
 
 - name: Load Master Data
-  ansible.builtin.shell: mongosh --host 172.31.87.161 </app/db/master-data.js
+  ansible.builtin.shell: mongosh --host mongodb.dev.sridevops.site </app/db/master-data.js
