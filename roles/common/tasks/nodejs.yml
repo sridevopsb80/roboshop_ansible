@@ -17,7 +17,7 @@
 - name:  Download NodeJS Dependencies
   ansible.builtin.shell: npm install # there could be a npm module, However we are still using shell, Since these steps will get removed when CI comes in.
   args:
-    chdir: "{{ app_path }}"
+    chdir: "{{ app_path }}" #used to cd
 
 - name: Load Schema
   ansible.builtin.include_role:

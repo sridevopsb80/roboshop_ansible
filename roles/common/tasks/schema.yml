@@ -1,12 +1,28 @@
-- name: Copy MongoDB repo file
-  ansible.builtin.copy:
-    src: mongo.repo
-    dest: /etc/yum.repos.d/mongo.repo
+- name: Load MongoDB schema
+  when: schema_setup == "mongo"
+  block:
+    - name: COpy MongoDB repo file
+      ansible.builtin.copy:
+        src: mongo.repo
+        dest: /etc/yum.repos.d/mongo.repo
 
-- name: Install MongoDB Client
-  ansible.builtin.dnf:
-    name: mongodb-mongosh
-    state: latest
+    - name: Install MongoDB Client
+      ansible.builtin.dnf:
+        name: mongodb-mongosh
+        state: latest
 
-- name: Load Master Data
-  ansible.builtin.shell: mongosh --host mongodb.{{ env }}.sridevops.site </app/db/master-data.js
+    - name: Load Master Data
+      ansible.builtin.shell: mongosh --host mongo.{{ env }}.rdevopsb80.online </app/db/{{ item }}.js
+      loop: "{{schema_files}}"
+
+- name: Load MySQL schema
+  when: schema_setup == "mysql"
+  block:
+    - name: Install mysql Client
+      ansible.builtin.dnf:
+        name: mysql
+        state: latest
+
+    - name: Load Master Data
+      ansible.builtin.shell: mysql -h mysql.{{ env }}.rdevopsb80.online -uroot -pRoboShop@1 < /app/db/{{ item }}.sql
+      loop: "{{schema_files}}"

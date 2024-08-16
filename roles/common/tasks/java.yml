@@ -10,7 +10,7 @@
 - name: Download Dependencies
   ansible.builtin.shell: mvn clean package ;mv target/{{ component }}-1.0.jar {{ component }}.jar
   args:
-    chdir: "{{ app_path }}"
+    chdir: "{{ app_path }}" #used to cd
 
 - name: Load Schema
   ansible.builtin.include_role:
