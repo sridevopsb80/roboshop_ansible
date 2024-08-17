@@ -12,13 +12,13 @@
     state: latest
 
 - name:  Redis config file - Update Listen Address
-  ansible.builtin.replace:
+  ansible.builtin.replace: #used to replace a word
     path: /etc/redis/redis.conf
     regexp: '127.0.0.1'
     replace: '0.0.0.0'
 
 - name: Redis config file - Update Protect Mode
-  ansible.builtin.lineinfile:
+  ansible.builtin.lineinfile: #used to replace an entire line
     path: /etc/redis/redis.conf
     regexp: 'protected-mode'
     line: protected-mode no

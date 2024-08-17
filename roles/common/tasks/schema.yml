@@ -1,3 +1,5 @@
+#block is used for grouping
+
 - name: Load MongoDB schema
   when: schema_setup == "mongo"
   block:
@@ -12,8 +14,10 @@
         state: latest
 
     - name: Load Master Data
-      ansible.builtin.shell: mongosh --host mongo.{{ env }}.rdevopsb80.online </app/db/{{ item }}.js
+      ansible.builtin.shell: mongosh --host mongo.{{ env }}.sridevops.site </app/db/{{ item }}.js
       loop: "{{schema_files}}"
+
+      #similar to using for loop in shell, we are using loop in ansible. a variable schema_files is defined. item var comes with loop
 
 - name: Load MySQL schema
   when: schema_setup == "mysql"
@@ -24,5 +28,7 @@
         state: latest
 
     - name: Load Master Data
-      ansible.builtin.shell: mysql -h mysql.{{ env }}.rdevopsb80.online -uroot -pRoboShop@1 < /app/db/{{ item }}.sql
+      ansible.builtin.shell: mysql -h mysql.{{ env }}.sridevops.site -uroot -pRoboShop@1 < /app/db/{{ item }}.sql
       loop: "{{schema_files}}"
+
+      #similar to using for loop in shell, we are using loop in ansible. a variable schema_files is defined. item var comes with loop
