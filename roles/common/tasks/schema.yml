@@ -4,7 +4,7 @@
   when: schema_setup == "mongo"
   block:
     - name: COpy MongoDB repo file
-      ansible.builtin.copy:
+      ansible.builtin.template: #changing copy module to template for terraform execution
         src: mongo.repo
         dest: /etc/yum.repos.d/mongo.repo
 
