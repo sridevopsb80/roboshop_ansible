@@ -1,19 +1,21 @@
+#variables are defined in vars - main.yml
+
 - name: Adding Application User
   ansible.builtin.user: #module to add user
     name: roboshop
 
 - name: Remove old content
   ansible.builtin.file: #module for file
-    path: "{{ app_path }}" #variable is defined in vars
+    path: "{{ app_path }}"
     state: absent #used to remove content
 
 - name: Create App Directory
   ansible.builtin.file:
-    path: "{{ app_path }}" #variable is defined in vars
-    state: directory
+    path: "{{ app_path }}"
+    state: directory # to create a directory
 
 - name: Download & Extract Application Content
   ansible.builtin.unarchive:
     src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip
-    dest: "{{ app_path}}" #variable is defined in vars
+    dest: "{{ app_path}}"
     remote_src: yes

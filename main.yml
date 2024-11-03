@@ -1,6 +1,9 @@
 - name: RoboShop Project Playbook
   hosts: all
-  become: true #used to execute sudo
+  become: true
   roles:
     - "{{ role_name }}" #using {{}} to define a variable in ansible
+
+#become is used for privilege escalation. If certain commands in the playbook require escalated privilege, use ansible privilege escalation: become to provide privileges.
+#https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_privilege_escalation.html
 
