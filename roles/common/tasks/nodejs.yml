@@ -23,7 +23,7 @@
   ansible.builtin.include_role: #to load another task from a role
     name: common
     tasks_from: schema
-  when: schema_setup is defined
+  when: schema_setup is defined #conditional used to load schema only when schema_setup is defined in a component
 
 - name: SystemD setup
   ansible.builtin.include_role: #to load another task from a role
