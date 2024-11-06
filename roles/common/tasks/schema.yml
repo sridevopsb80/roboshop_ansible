@@ -17,7 +17,7 @@
       ansible.builtin.shell: mongosh --host mongo.{{ env }}.sridevops.site </app/db/{{ item }}.js
       loop: "{{schema_files}}"
 
-      #similar to using for loop in shell, we are using loop in ansible. a variable schema_files is defined. item var comes with loop
+      #similar to using for loop in shell, we are using loop in ansible. a variable schema_files is defined. item var comes with loop and is used instead of file var in shell
 
 - name: Load MySQL schema
   when: schema_setup == "mysql"
