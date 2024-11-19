@@ -4,6 +4,21 @@
   roles:
     - "{{ role_name }}" #using {{}} to define a variable in ansible
 
+#command to execute
+#git pull; ansible-playbook -i frontend.dev.sridevops.site, -e ansible_user=ec2-user -e ansible_password=DevOps321 -e role_name=frontend main.yml#
+
 #become is used for privilege escalation. If certain commands in the playbook require escalated privilege, use ansible privilege escalation: become to provide privileges.
 #https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_privilege_escalation.html
 
+#to run a playbook
+#ansible-playbook -i <inventory filename> -e ansible_user=<username> -e ansible_password=<password> frontend.yml
+##ansible-playbook -i <node IP>, -e ansible_user=<username> -e ansible_password=<password> frontend.yml
+
+#To run a playbook with a variable defined in main.yml
+#ansible-playbook -i <inventory filename> -e ansible_user=<username> -e ansible_password=<password> -e <var_name>=<var_value> main.yml
+##ansible-playbook -i <node IP>, -e ansible_user=<username> -e ansible_password=<password> -e <var_name>=<var_value> main.yml
+##
+
+#Role structure: https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#role-directory-structure
+#ansible.builtin.copy module is used to copy files. files folder under roles structure is used when we use copy module. Refer mongodb component – tasks – main.yml.
+#ansible.builtin.template module is used to copy files and to pass variable value on them. when we use template module, we need to use templates folder under roles structure. Refer frontend component – tasks – main.yml

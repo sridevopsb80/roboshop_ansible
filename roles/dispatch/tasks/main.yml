@@ -2,3 +2,7 @@
   ansible.builtin.include_role: #to load another task from a role:
     name: common
     tasks_from: golang
+
+#https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#role-directory-structure
+#ansible.builtin.copy module is used to copy files. files folder under roles structure is used when we use copy module. Refer mongodb component – tasks – main.yml.
+#ansible.builtin.template module is used to copy files and to pass variable value on them. when we use template module, we need to use templates folder under roles structure. Refer frontend component – tasks – main.yml
