@@ -10,3 +10,6 @@ ansible-playbook -i  $1.dev.sridevops.site, -e env=dev -e ansible_user=ec2-user 
 
 # $1 value has to be passed while executing the run.sh.
 # command to execute in cli: bash run.sh frontend
+
+#the value for env variable is defined in run.sh and is passed to some service config files during execution.
+#template folder is used for those services since we want the value to be carried over. files folder can not be used for these services since it is used with copy module and it will not pass the variable value.
