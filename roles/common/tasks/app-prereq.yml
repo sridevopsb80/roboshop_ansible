@@ -1,18 +1,21 @@
-#variables are defined in vars - main.yml
+#variable values are defined in vars - main.yml of relevant service folders
 
+#module to add user
 - name: Adding Application User
-  ansible.builtin.user: #module to add user
+  ansible.builtin.user:
     name: roboshop
 
+#module for file
 - name: Remove old content
-  ansible.builtin.file: #module for file
+  ansible.builtin.file:
     path: "{{ app_path }}"
     state: absent #used to remove content
 
 - name: Create App Directory
   ansible.builtin.file:
     path: "{{ app_path }}"
-    state: directory # to create a directory
+    state: directory
+# to create a directory
 
 - name: Download & Extract Application Content
   ansible.builtin.unarchive:

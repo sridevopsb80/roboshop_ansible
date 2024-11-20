@@ -1,10 +1,13 @@
+#variable values are defined in vars - main.yml of relevant service folders
+
 - name:  Install golang
   ansible.builtin.dnf:
     name: golang
     state: latest
 
+#to load another task from a role
 - name: Setup App Prerequisites
-  ansible.builtin.include_role: #to load another task from a role
+  ansible.builtin.include_role:
     name: common
     tasks_from: app-prereq
 
