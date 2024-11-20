@@ -15,15 +15,18 @@
   ansible.builtin.shell: go mod init dispatch ; go get ; go build
   args:
     chdir: "{{ app_path }}"
+    #used to cd
 
+#to load another task from a role
 - name: Load Schema
-  ansible.builtin.include_role: #to load another task from a role
+  ansible.builtin.include_role:
     name: common
     tasks_from: schema
   when: schema_setup is defined
   #conditional used to load schema only when schema_setup is defined in a component
 
+#to load another task from a role
 - name: SystemD setup
-  ansible.builtin.include_role: #to load another task from a role
+  ansible.builtin.include_role:
     name: common
     tasks_from: systemd

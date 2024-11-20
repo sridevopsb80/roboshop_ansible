@@ -1,3 +1,5 @@
+#variable values are defined in vars - main.yml of relevant service folders
+
 - name: Install Python
   ansible.builtin.dnf:
     name:
@@ -6,8 +8,9 @@
       - gcc
     state: latest
 
+#to load another task from a role
 - name: Setup App Prerequisites
-  ansible.builtin.include_role: #to load another task from a role:
+  ansible.builtin.include_role:
     name: common
     tasks_from: app-prereq
 
@@ -15,15 +18,18 @@
   ansible.builtin.shell: pip3 install -r requirements.txt
   args:
     chdir: "{{ app_path }}"
+    #used to cd
 
+#to load another task from a role:
 - name: Load Schema
-  ansible.builtin.include_role: #to load another task from a role:
+  ansible.builtin.include_role:
     name: common
     tasks_from: schema
   when: schema_setup is defined
   #conditional used to load schema only when schema_setup is defined in a component
 
+#to load another task from a role:
 - name: SystemD setup
-  ansible.builtin.include_role: #to load another task from a role:
+  ansible.builtin.include_role:
     name: common
     tasks_from: systemd

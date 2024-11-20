@@ -1,5 +1,7 @@
+
+#to load another task from a role
 - name: Setup NodeJS Service
-  ansible.builtin.include_role: #to load another task from a role:
+  ansible.builtin.include_role:
     name: common
     tasks_from: nodejs
 
