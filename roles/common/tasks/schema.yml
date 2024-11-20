@@ -1,5 +1,5 @@
 #block is used for grouping
-
+# when conditional used to load schema only when schema_setup is defined in a component
 - name: Load MongoDB schema
   when: schema_setup == "mongo"
   block:
@@ -18,7 +18,7 @@
       loop: "{{schema_files}}"
 
       #similar to using for loop in shell, we are using loop in ansible. a variable schema_files is defined. item var comes with loop and is used instead of file var in shell
-
+#conditional used to load schema only when schema_setup is defined in a component
 - name: Load MySQL schema
   when: schema_setup == "mysql"
   block:
