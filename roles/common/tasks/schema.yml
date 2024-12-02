@@ -30,7 +30,7 @@
         state: latest
 
     - name: Load Master Data
-      ansible.builtin.shell: mysql -h mysql.{{ env }}.sridevops.site -uroot -pRoboShop@1 < /app/db/{{ item }}.sql
+      ansible.builtin.shell: mysql -h mysql.{{ env }}.sridevops.site -uroot -p{{ secrets.MYSQL_ROOT_PASSWORD }} < /app/db/{{ item }}.sql
       loop: "{{schema_files}}"
 
       #similar to using for loop in shell, we are using loop in ansible. a variable schema_files is defined. item var comes with loop
