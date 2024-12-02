@@ -2,14 +2,14 @@
 Description = Dispatch Service
 [Service]
 User=roboshop
-Environment=AMQP_HOST=rabbitmq.{{ env }}.sridevops.site
-Environment=AMQP_USER=roboshop
-Environment=AMQP_PASS=roboshop123
+Environment=AMQP_HOST={{ secrets.AMQP_HOST }}
+Environment=AMQP_USER={{ secrets.AMQP_USER }}
+Environment=AMQP_PASS={{ secrets.AMQP_PASS }}
 ExecStart=/app/dispatch
 SyslogIdentifier=dispatch
 
 [Install]
 WantedBy=multi-user.target
 
-#the value for env variable is defined in run.sh and is passed here during execution.
+#obtaining secrets from hashicorp vault . refer vars/main.yml for lookup command
 #template folder is used since we want that value to be carried over here. files folder will not be useful here since it is used with copy module and it will not pass the variable value.

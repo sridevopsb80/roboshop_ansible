@@ -2,14 +2,14 @@
 Description = User Service
 [Service]
 User=roboshop
-Environment=MONGO=true
-Environment=REDIS_URL='redis://redis.{{ env }}.sridevops.site:6379'
-Environment=MONGO_URL="mongodb://mongodb.{{ env }}.sridevops.site:27017/users"
+Environment=MONGO={{ secrets.MONGO }}
+Environment=REDIS_URL='{{ secrets.REDIS_URL }}'
+Environment=MONGO_URL="{{ secrets.MONGO_URL }}"
 ExecStart=/bin/node /app/server.js
 SyslogIdentifier=user
 
 [Install]
 WantedBy=multi-user.target
 
-#the value for env variable is defined in run.sh and is passed here during execution.
+#obtaining secrets from hashicorp vault . refer vars/main.yml for lookup command
 #template folder is used since we want that value to be carried over here. files folder will not be useful here since it is used with copy module and it will not pass the variable value.

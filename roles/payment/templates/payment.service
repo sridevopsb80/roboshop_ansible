@@ -4,13 +4,13 @@ Description=Payment Service
 [Service]
 User=root
 WorkingDirectory=/app
-Environment=CART_HOST=cart.{{ env }}.sridevops.site
-Environment=CART_PORT=8080
-Environment=USER_HOST=user.{{ env }}.sridevops.site
-Environment=USER_PORT=8080
-Environment=AMQP_HOST=rabbitmq.{{ env }}.sridevops.site
-Environment=AMQP_USER=roboshop
-Environment=AMQP_PASS=roboshop123
+Environment=CART_HOST={{ secrets.CART_HOST }}
+Environment=CART_PORT={{ secrets.CART_PORT }}
+Environment=USER_HOST={{ secrets.USER_HOST }}
+Environment=USER_PORT={{ secrets.USER_PORT }}
+Environment=AMQP_HOST={{ secrets.AMQP_HOST }}
+Environment=AMQP_USER={{ secrets.AMQP_USER }}
+Environment=AMQP_PASS={{ secrets.AMQP_PASS }}
 
 ExecStart=/usr/local/bin/uwsgi --ini payment.ini
 ExecStop=/bin/kill -9 $MAINPID
@@ -19,5 +19,5 @@ SyslogIdentifier=payment
 [Install]
 WantedBy=multi-user.target
 
-#the value for env variable is defined in run.sh and is passed here during execution.
+#obtaining secrets from hashicorp vault . refer vars/main.yml for lookup command
 #template folder is used since we want that value to be carried over here. files folder will not be useful here since it is used with copy module and it will not pass the variable value.
