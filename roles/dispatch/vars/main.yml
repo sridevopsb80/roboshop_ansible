@@ -1,2 +1,7 @@
 component: dispatch
 app_path: /app
+
+secrets: "{{ lookup('hashi_vault', 'secret=roboshop-{{env}}/data/dispatch token={{vault_token}} url=https://vault-internal.sridevops.site:8200 validate_certs=false')}}"
+
+#secrets- refer learn-ansible/09-hashicorp-vault.yml. obtaining secrets from hashicorp vault
+#the value for env variable is defined in run.sh : -e env=dev
