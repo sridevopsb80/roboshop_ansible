@@ -1,14 +1,36 @@
+# Disable default nginx stream using shell module since dnf module cannot
+# Note: Shell module is not idempotent. Ansible might execute these steps every time
+
 - name: Disable default nginx module
   ansible.builtin.shell: dnf module disable nginx -y
 
 - name: Enable Nginx 24 Version
   ansible.builtin.shell: dnf module enable nginx:1.24 -y
 
+# Idempotent way to check if nginx:1.24 stream is already installed
+# - name: Check enabled nginx module
+#   ansible.builtin.command:
+#     cmd: dnf module list nginx --enabled
+#   register: nginx_module
+#   changed_when: false
+
+# - name: Disable default nginx stream
+#   ansible.builtin.command:
+#     cmd: dnf module disable nginx -y
+#   when: "'1.24' not in nginx_module.stdout"
+
+# - name: Enable nginx 1.24 stream
+#   ansible.builtin.command:
+#     cmd: dnf module enable nginx:1.24 -y
+#   when: "'nginx:1.24' not in nginx_module.stdout"
+
+# Use dnf module to install specified nginx
 - name: Install Nginx
   ansible.builtin.dnf:
     name: nginx
     state: latest
 
+# Copy file using template module
 - name: Copy nginx config file
   ansible.builtin.template:
     src: nginx.conf
