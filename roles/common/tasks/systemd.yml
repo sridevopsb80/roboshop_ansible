@@ -1,3 +1,5 @@
+#variable values are defined in vars - main.yml of relevant service folders
+
 - name: Copy Service file
   ansible.builtin.template:
     src: "{{ component }}.service"

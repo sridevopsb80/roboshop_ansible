@@ -1,8 +1,11 @@
+#variable values are defined in vars - main.yml of relevant service folders
+
 - name:  Install golang
   ansible.builtin.dnf:
     name: golang
     state: latest
 
+#to load another task from a role
 - name: Setup App Prerequisites
   ansible.builtin.include_role:
     name: common
@@ -12,13 +15,17 @@
   ansible.builtin.shell: go mod init dispatch ; go get ; go build
   args:
     chdir: "{{ app_path }}"
+    #used to cd
 
+#to load another task from a role
 - name: Load Schema
   ansible.builtin.include_role:
     name: common
     tasks_from: schema
   when: schema_setup is defined
+  #conditional used to load schema only when schema_setup is defined in a component
 
+#to load another task from a role
 - name: SystemD setup
   ansible.builtin.include_role:
     name: common
