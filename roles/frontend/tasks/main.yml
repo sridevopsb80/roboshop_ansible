@@ -1,5 +1,6 @@
 # Disable default nginx stream using shell module since dnf module cannot
 # Note: Shell module is not idempotent. Ansible might execute these steps every time
+# Leaving shell approach for now since this is a test project
 
 - name: Disable default nginx module
   ansible.builtin.shell: dnf module disable nginx -y
@@ -30,23 +31,28 @@
     name: nginx
     state: latest
 
-# Copy file using template module
+# Copy file using template module. Check bottom for more comments
 - name: Copy nginx config file
   ansible.builtin.template:
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
 
+# Using include_role to include a task from another role
 - name: Setup App Prerequisites
-  ansible.builtin.include_role: #to include a task from another role
+  ansible.builtin.include_role: 
     name: common #calling from role common
     tasks_from: app-prereq #task name. .yml need not be mentioned.
 
+# Using systemd_service module to enable and restart nginx 
 - name: Start Nginx Service
   ansible.builtin.systemd_service:
     state: restarted
     name: nginx
     enabled: true
 
-#https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#role-directory-structure
-#ansible.builtin.copy module is used to copy files. files folder under roles structure is used when we use copy module. Refer mongodb component – tasks – main.yml.
-#ansible.builtin.template module is used to copy files and to pass variable value on them. when we use template module, we need to use templates folder under roles structure. Refer frontend component – tasks – main.yml
+# https://docs.ansible.com/ansible/latest/playbook_guide/playbooks_reuse_roles.html#role-directory-structure
+# ansible.builtin.copy module can be used to copy files. 
+# files folder under roles structure is used when we use copy module. Refer mongodb component – tasks – main.yml.
+# ansible.builtin.template module is used to copy files and to pass variable value on them. 
+# when we use template module, we need to use templates folder under roles structure. 
+# Refer frontend component – tasks – main.yml

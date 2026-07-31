@@ -1,6 +1,6 @@
 - name: RoboShop Project Playbook
   hosts: all
-  become: true
+  become: true #sudo privilege escalation
   roles:
     - "{{ role_name }}" #using {{}} to define a variable in ansible
 
