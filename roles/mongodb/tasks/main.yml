@@ -1,5 +1,5 @@
 
-# Use copy module to copy mongo.repo to /etc/yum.repos.d
+# Use copy module to copy mongo.repo from mongodb files folder to /etc/yum.repos.d
 - name:  Copy MongoDB repo file
   ansible.builtin.copy:
     src: mongo.repo

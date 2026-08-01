@@ -1,36 +1,40 @@
+# Use Shell module to disable default nodejs and to enable nodejs:20 module
+# Note: Shell module is not idempotent. Ansible might execute these steps every time
+# Leaving shell approach for now since this is a test project
 - name:  Disable NodeJS Default Version
   ansible.builtin.shell: dnf module disable nodejs -y
 
 - name:  Enable NodejS 20 Module
   ansible.builtin.shell: dnf module enable nodejs:20 -y
 
+# Use dnf module to install nodejs
 - name:  Install Nodejs
   ansible.builtin.dnf:
     name: nodejs
     state: latest
 
-#to load another task from a role
+# Use include_role to load a task from another role
 - name: Setup App Prerequisites
   ansible.builtin.include_role:
     name: common
-    tasks_from: app-prereq
+    tasks_from: app-prereq #.yml notation not needed
 
-# there could be a npm module, However we are still using shell, Since these steps will get removed when CI comes in.
+# Using shell module to install NodeJS untill CI is introduced
 - name:  Download NodeJS Dependencies
   ansible.builtin.shell: npm install
   args:
     chdir: "{{ app_path }}"
     #used to cd
 
-#to load another task from a role
+# Use include_role to load a task from another role
 - name: Load Schema
   ansible.builtin.include_role:
     name: common
     tasks_from: schema
   when: schema_setup is defined
-  #conditional used to load schema only when schema_setup is defined in a component
+  # conditional used to load schema only when schema_setup is defined in a component
 
-#to load another task from a role
+# Use include_role to load a task from another role
 - name: SystemD setup
   ansible.builtin.include_role:
     name: common
