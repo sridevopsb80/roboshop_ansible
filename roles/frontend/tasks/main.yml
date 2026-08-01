@@ -37,11 +37,11 @@
     src: nginx.conf
     dest: /etc/nginx/nginx.conf
 
-# Using include_role to include a task from another role
+# Use include_role to include a task from another role
 - name: Setup App Prerequisites
   ansible.builtin.include_role: 
-    name: common #calling from role common
-    tasks_from: app-prereq #task name. .yml need not be mentioned.
+    name: common # calling from role common
+    tasks_from: app-prereq # task name. .yml need not be mentioned.
 
 # Using systemd_service module to enable and restart nginx 
 - name: Start Nginx Service

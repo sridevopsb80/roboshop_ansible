@@ -1,22 +1,23 @@
-#variable values are defined in vars - main.yml of relevant service folders
+# variable values are defined in vars - main.yml of relevant service folders
 
-#module to add user
+# use user module to add user
 - name: Adding Application User
   ansible.builtin.user:
     name: roboshop
 
-#module for file
+# use file module to remove a file
 - name: Remove old content
   ansible.builtin.file:
     path: "{{ app_path }}"
     state: absent #used to remove content
 
+# use file module to create a directory
 - name: Create App Directory
   ansible.builtin.file:
     path: "{{ app_path }}"
     state: directory
-# to create a directory
 
+# use unarchive module to download and unzip a file
 - name: Download & Extract Application Content
   ansible.builtin.unarchive:
     src: https://roboshop-artifacts.s3.amazonaws.com/{{component}}-v3.zip
