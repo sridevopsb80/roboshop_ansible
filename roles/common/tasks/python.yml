@@ -1,4 +1,4 @@
-#variable values are defined in vars - main.yml of relevant service folders
+# variable values are defined in vars - main.yml of relevant service folders
 
 - name: Install Python
   ansible.builtin.dnf:

@@ -1,13 +1,13 @@
-#variable values are defined in vars - main.yml of relevant service folders
-#block is used for grouping
+# variable values are defined in vars - main.yml of relevant service folders
+# block is used for grouping
 
-# when conditional used to load schema only when schema_setup value is defined as mongo
+# when conditional is used to load schema only when schema_setup value is defined as mongo
 - name: Load MongoDB schema
   when: schema_setup == "mongo"
   block:
       # Use template module to copy file
     - name: Copy MongoDB repo file
-      ansible.builtin.template: #changing copy module to template for terraform execution
+      ansible.builtin.template: # changing copy module to template to pass multiple env values
         src: mongo.repo
         dest: /etc/yum.repos.d/mongo.repo
 
@@ -21,10 +21,11 @@
     - name: Load Master Data
       ansible.builtin.shell: mongosh --host mongo.{{ env }}.sridevops.site </app/db/{{ item }}.js
       loop: "{{schema_files}}"
-      #similar to using for loop in shell, we are using loop in ansible. 
-      # a variable schema_files is defined. item var comes with loop and is used instead of file var in shell
+      # similar to using for loop in shell, we are using loop in ansible. 
+      # variable schema_files is defined in shipping
+      # item var comes with loop and is used instead of file var in shell (refer common.sh SCHEMA_SETUP function mysql portion)
 
-#conditional used to load schema only when schema_setup is defined in a component
+# conditional used to load schema only when schema_setup is defined in a component
 - name: Load MySQL schema
   when: schema_setup == "mysql"
   block:
@@ -34,9 +35,9 @@
         name: mysql
         state: latest
 
-    # # Use shell module to load master data
+    # Use shell module to load master data
     - name: Load Master Data
       ansible.builtin.shell: mysql -h mysql.{{ env }}.sridevops.site -uroot -p{{ secrets.MYSQL_ROOT_PASSWORD }} < /app/db/{{ item }}.sql
       loop: "{{schema_files}}"
-      #similar to using for loop in shell, we are using loop in ansible. 
-      # a variable schema_files is defined. item var comes with loop
+      # similar to using for loop in shell, we are using loop in ansible. 
+      # variable schema_files is defined in catalog vars folder. item var comes with loop
