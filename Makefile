@@ -1,8 +1,10 @@
-#Executing make frontend will execute the frontend defined here. for other components, define as necessary
-#tab space is used for git pull
+# Executing make frontend will execute the frontend defined here. 
+# for other components, use as necessary
+# tab space is used for git pull
 
-#command used when main.yml is executed in cli:
-#git pull; ansible-playbook -i frontend.dev.sridevops.site, -e ansible_user=ec2-user -e ansible_password=DevOps321 -e role_name=frontend main.yml
+# command used when main.yml is executed in cli:
+# git pull; 
+# ansible-playbook -i frontend.dev.sridevops.site, -e ansible_user=ec2-user -e ansible_password=DevOps321 -e role_name=frontend main.yml
 
 frontend:
 	git pull
