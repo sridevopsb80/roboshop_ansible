@@ -20,13 +20,17 @@ ansible-playbook \
     -e vault_token="${VAULT_TOKEN}" \
     main.yml
 
+# command to execute in cli: bash run.sh frontend <vault root token>
 
 # this shell script can be used to execute the rolename defined in main.yml. 
 # env variables are being passed during the execution of the command
 
 # example command used when main.yml is executed in cli:
 # git pull; 
-# ansible-playbook -i frontend.dev.sridevops.site, -e ansible_user=ec2-user -e ansible_password=DevOps321 -e role_name=frontend main.yml <root token value of vault>
+# ansible-playbook -i frontend.dev.sridevops.site, \
+# -e ansible_user=ec2-user \
+# -e ansible_password=DevOps321 \
+# -e role_name=frontend main.yml <root token value of vault>
 
 # $1,$2 value has to be passed while executing the run.sh.
 # command to execute in cli: bash run.sh frontend <vault root token>
